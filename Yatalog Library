@@ -1,0 +1,81 @@
+local Library = {}
+local menu = Instance.new("ScreenGui")
+local mainFrame = Instance.new("Frame")
+
+menu.Name = "MyMenu"
+menu.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+mainFrame.Size = UDim2.new(0, 0.7 * workspace.CurrentCamera.ViewportSize.X, 0, 0.7 * workspace.CurrentCamera.ViewportSize.Y)
+mainFrame.BackgroundColor3 = Color3.fromRGB(105, 105, 105)
+mainFrame.BackgroundTransparency = 0.30
+mainFrame.Position = UDim2.new(0.5, -mainFrame.Size.X.Offset / 2, 0.5, -mainFrame.Size.Y.Offset / 2)
+mainFrame.Parent = menu
+
+function Library:CreateWindow(title)
+    local window = Instance.new("Frame")
+    window.Size = UDim2.new(1, 0, 1, 0)
+    window.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+    window.Parent = mainFrame
+
+    local titleLabel = Instance.new("TextLabel")
+    titleLabel.Size = UDim2.new(1, 0, 0, 50)
+    titleLabel.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
+    titleLabel.Text = title
+    titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    titleLabel.Parent = window
+
+    return window
+end
+
+function Library:CreateSection(parent, sectionName)
+    local section = Instance.new("Frame")
+    section.Size = UDim2.new(1, 0, 0, 0)
+    section.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    section.Parent = parent
+
+    local sectionLabel = Instance.new("TextLabel")
+    sectionLabel.Size = UDim2.new(1, 0, 0, 30)
+    sectionLabel.BackgroundColor3 = Color3.fromRGB(200, 200, 200)
+    sectionLabel.Text = sectionName
+    sectionLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+    sectionLabel.Parent = section
+
+    local buttonList = Instance.new("Frame")
+    buttonList.Size = UDim2.new(1, 0, 1, -30)
+    buttonList.Position = UDim2.new(0, 0, 0, 30)
+    buttonList.BackgroundTransparency = 1
+    buttonList.Parent = section
+
+    -- Добавляем UIListLayout для автоматического размещения кнопок
+    local uiListLayout = Instance.new("UIListLayout")
+    uiListLayout.FillDirection = Enum.FillDirection.Vertical
+    uiListLayout.Parent = buttonList
+
+    return buttonList
+end
+
+function Library:CreateButton(parent, text, callback)
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(0, 200, 0, 50)
+    button.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+    button.Text = text
+    button.TextColor3 = Color3.fromRGB(255, 255, 255)
+    button.Parent = parent
+
+    button.MouseButton1Click:Connect(callback)
+
+    return button
+end
+
+function Library:CreateLabel(parent, text)
+    local label = Instance.new("TextLabel")
+    label.Size = UDim2.new(0, 200, 0, 50)
+    label.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
+    label.Text = text
+    label.TextColor3 = Color3.fromRGB(0, 0, 0)
+    label.Parent = parent
+
+    return label
+end
+
+return Library
